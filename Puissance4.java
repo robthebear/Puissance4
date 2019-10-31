@@ -1,35 +1,42 @@
-
+/**
+ * @Rob the bear
+ * Puissance 4 Simplon
+ */
 
 import java.util.*;
-
+/**
+ * déclaration de toutes les variables utiles dans les différentes méthodes
+ */
 public class Puissance4 {
-    // je déclare mes variables en static pour les utiliser partout
-    static int choix;
-    static String joueur1 = "";
-    static String joueur2 = "";
-    static int N;
-    static int L;
-    static int C;
-    static char[][] plateau;
-    static int i;
-    static String ligne = "";
-    static int gagnant;
-    static int o;
-    static int low;
-    static int high;
-    static int choix1;
-    static int choix2;
-    static String reponse = " ";
-    static int infoIa;
+    int choix;
+    String joueur1 = "";
+    String joueur2 = "";
+    int N;
+    int L;
+    int C;
+    char[][] plateau;
+    int i;
+    String ligne = "";
+    int gagnant;
+    int o;
+    int low;
+    int high;
+    int choix1;
+    int choix2;
+    String reponse = " ";
+    int infoIa;
 
-    public Puissance4() {
+    Puissance4(){
 
-    }
+    };
+
+   
     /**
-     * Je créé ma méthode pour choisir le de jouer à 2 ou contre l'ordinateur
+     * Méthode qui donne le choix de un ou 2 joueurs
+     * @return sur la méthode jouers ou ordinateur
      */
 
-    public static void choixJoueurs() {
+    public void choixJoueurs() {
         choix1 = 1;
         choix2 = 2;
         String choixJoueur = "Choix des joueurs: \n- Choix 1: 2 joueurs. \n- Choix 2: 1 joueur.";
@@ -43,9 +50,10 @@ public class Puissance4 {
 
     }
 /**
- * Si on choisit l'option 1, on rentre le nom des joueurs
+ * Choix des prénoms des joueurs 
+ * @return les prénoms seront utilisés pendant toute la partie
  */
-    public static void joueurs() {
+    public void joueurs() {
         System.out.println("Entrer le nom du joueur 1: ");
         Scanner j1 = new Scanner(System.in);
         joueur1 = j1.nextLine();
@@ -56,10 +64,10 @@ public class Puissance4 {
 
     }
     /**
-     * Pour l'option 2 on rentre son nom est le joueur 2 est l'ordiateur
+     * Choix du prénom du joueur, le joueur 2 est l'ordinateur
      */
 
-    public static void ordinateur() {
+    public void ordinateur() {
         System.out.println("Entrer le nom du joueur: ");
         Scanner j1 = new Scanner(System.in);
         joueur1 = j1.nextLine();
@@ -68,17 +76,27 @@ public class Puissance4 {
 
     }
     /**
-     * J'initialise mon plateau de jeu
+     * Initialisation du plateau de jeu
      */
-    public static void initJeu() {
+    public void initJeu() {
+        /**Je donne une valeur au 3 variables, 
+        * N qui est le nombre de jetons alignés pour gagner, C la taille de la colonne et L la taille de la ligne.
+        * Ce qui permet de faire un puissance 3, 5, 10, etc... en changeant ces valeurs.
+        */
         N = 4;
         C = 7;
         L = 6;
+        /**
+         * parcours dans une boucle tous les emplacements du tableau à 2 entrées et y met un point.
+         */
         plateau = new char[C][L];
         for (int x = 0; x < C; x++)
             for (int y = 0; y < L; y++)
                 plateau[x][y] = '.';
-    
+
+    /**
+     * debut de la partie avec l'affichage du tableau et la proposition de jeu en nommant le joueur.
+     */
         for (i = 1; i <= C * L; i++) {
             plateau();
             System.out.println();
@@ -89,9 +107,12 @@ public class Puissance4 {
         }
         
     }
-    // Je formate mon plateau
+    /**
+     * formatage du tour de plateau
+     * le plateau est utilisé plusieurs fois, une seule méthode à appeler
+     */
     
-    public static void plateau() {
+    public void plateau() {
         System.out.println("Tour " + i + ", Etat du plateau: ");
         for (int loop = 0; loop < C + 2 + 2 * C; loop++) {
             System.out.print('-');
@@ -113,14 +134,21 @@ public class Puissance4 {
             System.out.print("  " + q);
         }
     }
-    // Ma méthode de jeu de l'ordinateur
+    /**
+     * Méthode de jeu naive avec l'ordinateur
+     * @return un chiffre aléatoire entre 1 et 7;
+     */
 
-    public static int random() {
+    public int random() {
         high = 7;
         low = 1;
         return ((int) (Math.random() * (high + 1 - low)) + low);
     }
-    public static int ia() {
+    /**
+     * Tentative d'ia, il récupère le chiffre saisie par l'utilisateur
+     * @return donne un chiffre aléatoire autour de ce chiffre
+     */
+    public int ia() {
     
                 if (infoIa == 1) {
                     high = 2;
@@ -160,47 +188,54 @@ public class Puissance4 {
         
     }
 /**
- * Dans ma méthode de jeu en rapport avec les choix précédents il va choisir sa facon de jouer
+ * methode de jeu
  */
-    public static void methodeDeJeu() {
+    public void methodeDeJeu() {
         
-        boolean placement = false;
+        boolean placement = false;//boolean qui permet de verifier le placement du jeton
         int colonne = -1;
         Scanner sc = new Scanner(System.in);
+        //boucle while pour tester si les informations saisies sont juste
         while (!placement) {
+            //condition si choix ordinateur ou 2 joueurs
             if (choix == choix1)
                 ligne = sc.nextLine();
             if (choix == choix2) {
+                // Condition qui permet un jeu alternatif entre ordi et joueur
                 if (i % 2 == 1){
                     ligne = sc.nextLine();
-                    infoIa = Integer.valueOf(ligne);}
+                    infoIa = Integer.valueOf(ligne);}//variable utilisé pour l'ia mais pas convaincante
                 else 
                     ligne = String.valueOf(random());
             }
             try {
+                //permet de savoir si la saisie est un nombre entier
                 colonne = Integer.valueOf(ligne);
                 if (colonne >= 1 && colonne <= C) {
+                    //permet de savoir si l'emplacement choisi est un point ou un symbol
                     if (plateau[colonne - 1][0] != '.') {
+                        // si ça n'est pas un point il propose de rejouer
                         System.out.println("Colonne pleine! Rejouez!");
-                    } else {
+                    } else {//sinon il donne le placement vrai et il place le symbole
                         placement = true;
 
                     }
 
-                } else {
-                    System.out.println("Choisir un chiffre entre 1 et 7 est si compliqué??? \n\nRejouez!!!!");
+                } else {//si c'est un chiffre mais pas entre 1 et 7
+                    System.out.println("Choisir un chiffre entre 1 et "+C+" est si compliqué??? \n\nRejouez!!!!");
                 }
 
-            } catch (Exception e) {
+            } catch (Exception e) {//si c'est autre chose
                 System.out.println("Pas autre chose qu'un chiffre entre 1 et "+C+"!!!! \n\nRejouez!!!!");
 
             }
         }
-
+        //On retire 1 à rang pour partir à 1 et non à 0
         int rang = L - 1;
+        //tant que nous n'avons pas de points placés, donc un symbole, on décrémente rang
         while (plateau[colonne - 1][rang] != '.') {
             rang--;
-        }
+        }//C'est que nous avons un symbole
         plateau[colonne - 1][rang] = (i % 2 == 1 ? 'X' : 'O');
 
         char symbole = (i % 2 == 1 ? 'X' : 'O');
@@ -257,7 +292,7 @@ public class Puissance4 {
     }
     //La méthode gagnant donne le résultat
 
-    public static void gagnants() {
+    public void gagnants() {
         plateau();
         System.out.println();
         System.out.println("\n");
@@ -271,7 +306,7 @@ public class Puissance4 {
 
     }
 // L'option rejouer 
-    public static void rejouer() {
+    public void rejouer() {
         String oui = "O";
         String non = "N";
         System.out.println();
@@ -288,7 +323,7 @@ public class Puissance4 {
     }
     
     //Une méthode qui appelle mes autres méthodes
-    public static void jeu() {
+    public void jeu() {
         initJeu();
         gagnants();
         rejouer();
@@ -296,8 +331,11 @@ public class Puissance4 {
     }
 // Dans le main je n'appelle que 2 méthodes
     public static void main(String[] args) {
-        choixJoueurs();
-        jeu();
+        
+        Puissance4 monPuissance4 = new Puissance4();
+        
+        monPuissance4.choixJoueurs();
+        monPuissance4.jeu();
     }
 
 }

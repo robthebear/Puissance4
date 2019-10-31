@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Puissance4",
+            "request": "launch",
+            "mainClass": "Puissance4"
+        }
+    ]
+}
