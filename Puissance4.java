@@ -173,7 +173,7 @@ public class Puissance4 {
                     ligne = sc.nextLine();
                     infoIa = Integer.valueOf(ligne);}
                 else 
-                    ligne = String.valueOf(ia());
+                    ligne = String.valueOf(random());
             }
             try {
                 colonne = Integer.valueOf(ligne);
@@ -211,78 +211,47 @@ public class Puissance4 {
         x = colonne - 1;
         y = rang;
         somme = -1;
-        while (y >= 0 && plateau[x][y] == symbole) {
-            y--;
-            somme++;
-        }
-        y = rang;
-        while (y < L && plateau[x][y] == symbole) {
-            y++;
-            somme++;
-        }
-        if (somme > max)
-            max = somme;
-
+        while (y >= 0 && plateau[x][y] == symbole) {y--;somme++;}
+        y = rang;    
+        while (y < L && plateau[x][y] == symbole) {y++;somme++;}
+        if (somme > max)max = somme;
+                
+        
         // Horizontale:
         x = colonne - 1;
         y = rang;
         somme = -1;
-        while (x >= 0 && plateau[x][y] == symbole) {
-            x--;
-            somme++;
-        }
+        while (x >= 0 && plateau[x][y] == symbole) { x--;somme++; }
         x = colonne - 1;
-        while (x < C && plateau[x][y] == symbole) {
-            x++;
-            somme++;
-        }
-        if (somme > max)
-            max = somme;
+        while (x < C && plateau[x][y] == symbole) { x++;somme++;}      
+        if (somme > max)max = somme;
+        
+            
 
         // Diagonale HG-BD
         x = colonne - 1;
         y = rang;
         somme = -1;
-        while (y >= 0 && x >= 0 && plateau[x][y] == symbole) {
-            y--;
-            x--;
-            somme++;
-        }
+        while (y >= 0 && x >= 0 && plateau[x][y] == symbole) {y--;x--;somme++;}
         x = colonne - 1;
         y = rang;
-        while (y < L && x < C && plateau[x][y] == symbole) {
-            y++;
-            x++;
-            somme++;
-        }
-        if (somme > max)
-            max = somme;
+        while (y < L && x < C && plateau[x][y] == symbole) {y++;x++;somme++;}
+        if (somme > max)max = somme;
+            
 
         // Diagonale HD-BG
         x = colonne - 1;
         y = rang;
         somme = -1;
-        while (y >= 0 && x < C && plateau[x][y] == symbole) {
-            y--;
-            x++;
-            somme++;
-        }
+        while (y >= 0 && x < C && plateau[x][y] == symbole) {y--;x++;somme++;}
         x = colonne - 1;
         y = rang;
-        while (y < L && x >= 0 && plateau[x][y] == symbole) {
-            y++;
-            x--;
-            somme++;
-        }
-        if (somme > max)
-            max = somme;
+        while (y < L && x >= 0 && plateau[x][y] == symbole) {y++;x--;somme++;}
+        if (somme > max)max = somme;
+            
 
-        if (max >= N) {
-            gagnant = (i % 2 == 1 ? 1 : 2);
-            i = C * L + 1;
-        }
-      
-
+        if (max >= N) {gagnant = (i % 2 == 1 ? 1 : 2);i = C * L + 1;}
+            
     }
     //La méthode gagnant donne le résultat
 
@@ -315,6 +284,7 @@ public class Puissance4 {
             
         }
     }
+    
     //Une méthode qui appelle mes autres méthodes
     public static void jeu() {
         initJeu();
