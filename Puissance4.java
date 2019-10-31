@@ -232,18 +232,18 @@ public class Puissance4 {
         }
         //On retire 1 à rang pour partir à 1 et non à 0
         int rang = L - 1;
-        //tant que nous n'avons pas de points placés, donc un symbole, on décrémente rang
+        //Si ça n'est pas un . on décrémente rang
         while (plateau[colonne - 1][rang] != '.') {
             rang--;
-        }//C'est que nous avons un symbole
+        }//Si ce n'est pas un point c'est un symbole
         plateau[colonne - 1][rang] = (i % 2 == 1 ? 'X' : 'O');
-
+        //Choix du type de symbole en fonction du nombre restant de cases vides
         char symbole = (i % 2 == 1 ? 'X' : 'O');
         int max = 0;
         int x;
         int y;
         int somme;
-
+        // test les différentes possibilitées pour trouver un gagnant
         // Verticale:
         x = colonne - 1;
         y = rang;
@@ -290,9 +290,12 @@ public class Puissance4 {
         if (max >= N) {gagnant = (i % 2 == 1 ? 1 : 2);i = C * L + 1;}
             
     }
-    //La méthode gagnant donne le résultat
+    /*
+    * La méthode gagnant donne le résultat
+    **/
 
     public void gagnants() {
+        //je lance la méthode plateau pour afficher le plateau après le dernier choix
         plateau();
         System.out.println();
         System.out.println("\n");
@@ -305,7 +308,9 @@ public class Puissance4 {
         }
 
     }
-// L'option rejouer 
+    /**
+     * L'option rejouer 
+     */
     public void rejouer() {
         String oui = "O";
         String non = "N";
@@ -313,6 +318,7 @@ public class Puissance4 {
         System.out.println("Voulez-vous recommencer une partie?\n-O\n-N");
         Scanner sc = new Scanner(System.in);
         reponse = sc.nextLine();
+        //il transforme la lettre en majuscule au cas où
         reponse = reponse.toUpperCase();
         if (reponse.equals(oui)) {
             jeu();
@@ -322,7 +328,9 @@ public class Puissance4 {
         }
     }
     
-    //Une méthode qui appelle mes autres méthodes
+    /**
+     * Une méthode qui appelle mes autres méthodes
+     */
     public void jeu() {
         initJeu();
         gagnants();
@@ -331,7 +339,7 @@ public class Puissance4 {
     }
 // Dans le main je n'appelle que 2 méthodes
     public static void main(String[] args) {
-        
+        //je créé un exemplaire de mon objet pour appeler les méthodes de mon objet
         Puissance4 monPuissance4 = new Puissance4();
         
         monPuissance4.choixJoueurs();
